@@ -1,0 +1,11 @@
+prometheus:
+  url: http://prom-op-prometheus-operato-prometheus.monitoring.svc
+rules:
+  external:
+  - seriesQuery: 'foobar'
+    resources:
+      overrides:
+        namespace: { resource: namespace }
+        service: { resource: service }
+        pod: { resource: pod }
+    metricsQuery: 'foobar'

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-producer
+  namespace: producer
+spec:
+  selector:
+    matchLabels:
+      app: external-producer
+  template:
+    metadata:
+      labels:
+        app: external-producer
+    spec:
+      containers:
+      - name: producer
+        image: briankopp/metrics-producer:0.0.1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-producer
+  namespace: producer
+  labels:
+    app: external-producer
+spec:
+  selector:
+    app: external-producer
+  ports:
+  - port: 3000
+  type: NodePort
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: external-producer-monitor
+  namespace: monitoring
+  labels:
+    release: prom-op
+spec:
+  endpoints:
+  - targetPort: 3000
+    honorLabels: true
+  namespaceSelector:
+    matchNames:
+    - producer
+  selector:
+    matchLabels:
+      app: external-producer
