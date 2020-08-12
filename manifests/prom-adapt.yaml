@@ -8,4 +8,4 @@ rules:
         namespace: { resource: namespace }
         service: { resource: service }
         pod: { resource: pod }
-    metricsQuery: 'foobar'
+    metricsQuery: 'foobar{<<.LabelSelectors>>}'

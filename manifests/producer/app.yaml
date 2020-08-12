@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: producer
-        image: briankopp/metrics-producer:0.0.1
+        image: briankopp/labelled-metrics-producer:0.0.1
         resources:
           limits:
             memory: "128Mi"

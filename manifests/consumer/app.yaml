@@ -55,6 +55,9 @@ spec:
     external:
       metric:
         name: foobar
+        selector:
+          matchLabels:
+            queue: bar
       target:
         averageValue: 1000
         type: AverageValue

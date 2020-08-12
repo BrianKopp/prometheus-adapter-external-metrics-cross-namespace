@@ -4,8 +4,9 @@ const app = express();
 
 app.get('/metrics', (_, res) => {
     const metricsText = '# HELP foobar This is just an example of a metric' +
-        '\n# TYPE foobar counter' +
-        '\nfoobar 9000'
+        '\n# TYPE foobar gauge' +
+        '\nfoobar{queue="foo"} 9000' +
+        '\nfoobar{queue="bar"} 4000';
     res.send(metricsText);
 });
 
